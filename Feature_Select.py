@@ -4,16 +4,17 @@ warnings.filterwarnings('ignore')
 import csv
 import numpy as np
 import pandas as pd
+import seaborn as sns
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.model_selection import RepeatedKFold
-import seaborn as sns
 from sklearn.metrics import RocCurveDisplay
 from scipy import stats
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
 from sklearn.cluster import KMeans
 from sklearn import metrics
-import matplotlib.pyplot as plt
 from itertools import product
 from collections import defaultdict, Counter
 from sklearn.metrics import r2_score
@@ -27,11 +28,8 @@ from sklearn.model_selection import RepeatedKFold
 from sklearn.decomposition import PCA
 from sklearn.metrics import roc_auc_score, roc_curve, precision_recall_curve, confusion_matrix
 from sklearn.metrics import classification_report
-from matplotlib.pyplot import figure
 from sklearn.metrics import accuracy_score     
-from sklearn.feature_selection import SelectFromModel
 import math
-from scipy.stats.stats import pearsonr
 from matplotlib.colors import Normalize
 
 # Read your .csv file containing the independent variables and the target
