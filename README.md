@@ -1,1 +1,1 @@
-This code utilizes the features extracted from a Molecular Dynamics simulation (MD) and fits a Random Forest Classifier to predict the effect of missense mutations on the Galactose Oxidase (GO) enzyme.
+This code utilizes the features extracted from Molecular Dynamics (MD) simulations and fits a Random Forest Classifier to predict the effect of missense mutations on the Galactose Oxidase (GO) enzyme, based on pre-selected features.
