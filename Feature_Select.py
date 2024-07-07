@@ -109,5 +109,5 @@ def GetTopFeatures(MIF, top_n=3, common_n=5):
     #plt.title('Most important features',fontsize=16)
     plt.show()
     
-    return most_common    
+    return most_important  
 
