@@ -13,7 +13,6 @@ from sklearn.metrics import RocCurveDisplay
 from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
-from sklearn.cluster import KMeans
 from sklearn import metrics
 from itertools import product
 from collections import defaultdict, Counter
@@ -91,10 +90,7 @@ def GetTopFeatures(MIF, top_n=3, common_n=5):
     counter = Counter(strings_only)
     most_common = counter.most_common(common_n)
 
-    # Now plot the results
     figure(figsize=(9, 6.5), dpi=80)
-
-    # Unpack the elements and frequencies
     elements, frequencies = zip(*most_common)
     pastel_palette = sns.color_palette("Pastel1", len(elements))
     
