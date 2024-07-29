@@ -15,9 +15,14 @@ pip install \
 
 You will also need to import all the estimators from scikit-learn.
 
+
 #### **Description**
 
 This module reads the extracted, averaged features from several replicas of Molecualar Dynamics (MD) simulations and selects the top features. It then uses those features to fit a Random Forest Model to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate.
+
+#### **Extracted features file**
+
+All of the features extracted from the MD simulations need to be organised in a .csv file in a format similar to the example_features.csv file where the first column contains the names of the Galactose Oxidase Variant. All subsequent columns are different features, for example, interatomic distances between two active site atoms. The final column should be your target variable.
 
 
 #### Run from the command line: 
