@@ -13,7 +13,7 @@ pip install \
   statistics
 ```
 
-You will also need to import all the estimators from scikit-learn.
+You will also need to import all the estimators from scikit-learn, as well as the other python libraries related to calculating performance metrics.
 
 
 #### **Description**
