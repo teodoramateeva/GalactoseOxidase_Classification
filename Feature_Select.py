@@ -34,7 +34,6 @@ from matplotlib.colors import Normalize
 def ExtractColumns(df):
     X = df.iloc[:,1:49]
     Y = df.iloc[:,[49]]
-
     return X, Y
 
 
