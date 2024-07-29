@@ -22,7 +22,7 @@ This module reads the extracted, averaged features from several replicas of Mole
 
 #### **Extracted features file**
 
-All of the features extracted from the MD simulations need to be organised in a .csv file in a format similar to the example_features.csv file where the first column contains the names of the Galactose Oxidase Variant. All subsequent columns are different features, for example, interatomic distances between two active site atoms. The final column should be your target variable.
+All of the features extracted from the MD simulations need to be organised in a .csv file in a format similar to the example_features.csv file where the first column contains the names of the Galactose Oxidase Variants. All subsequent columns are different features, for example, interatomic distances between two active site atoms. The final column should be your target variable.
 
 
 #### Run from the command line: 
