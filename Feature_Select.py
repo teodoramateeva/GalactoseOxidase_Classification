@@ -4,8 +4,9 @@ warnings.filterwarnings('ignore')
 import csv
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import RepeatedKFold
 import seaborn as sns
+from sklearn.model_selection import RepeatedKFold
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import RocCurveDisplay
 from scipy import stats
 from sklearn import metrics
@@ -34,8 +35,8 @@ def ExtractColumns(df):
     X = df.iloc[:,1:49]
     Y = df.iloc[:,[49]]
 
-    print("Function 1 executed: Extracted columns 'col1' as X and 'col2' as Y")
-    return all_acc, MIF
+    return X, Y
+
 
 def SelectFeatures(X, Y):
     # Accuracy scores to be saved here
@@ -66,7 +67,7 @@ def SelectFeatures(X, Y):
     return all_acc, MIF
     
 
-def GetTopFeatures(MIF, top_n=3, common_n=5):
+def GetTopFeatures(MIF, top_n=3, common_n=5, csv_filename='top_features.csv'):
     """
     Extract the top N features from each iteration in MIF and return the most common features.
     Returns:
@@ -102,6 +103,14 @@ def GetTopFeatures(MIF, top_n=3, common_n=5):
     plt.ylabel('Importance', fontsize=16)
     #plt.title('Most important features',fontsize=16)
     plt.show()
+
+    with open(csv_filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Feature', 'Importance'])
+        for feature, importance in most_common:
+            writer.writerow([feature, importance])
     
     return most_common    
+
+
 
