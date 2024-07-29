@@ -1,4 +1,4 @@
-#### **Quick start **
+#### Quick start 
 Prerequisites (we suggest creating a dedicated python venv or conda env)
 
 ```bash
