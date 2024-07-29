@@ -4,19 +4,14 @@ warnings.filterwarnings('ignore')
 import csv
 import numpy as np
 import pandas as pd
-import seaborn as sns
-from sklearn.metrics import precision_recall_fscore_support
-from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.model_selection import RepeatedKFold
+import seaborn as sns
 from sklearn.metrics import RocCurveDisplay
 from scipy import stats
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import figure
 from sklearn import metrics
+import matplotlib.pyplot as plt
 from itertools import product
 from collections import defaultdict, Counter
-from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.metrics import roc_curve, auc, accuracy_score
@@ -27,15 +22,20 @@ from sklearn.model_selection import RepeatedKFold
 from sklearn.decomposition import PCA
 from sklearn.metrics import roc_auc_score, roc_curve, precision_recall_curve, confusion_matrix
 from sklearn.metrics import classification_report
+from matplotlib.pyplot import figure
 from sklearn.metrics import accuracy_score     
+from sklearn.feature_selection import SelectFromModel
 import math
+from scipy.stats.stats import pearsonr
 from matplotlib.colors import Normalize
 
-# Read your .csv file containing the independent variables and the target
-df = pd.read_csv('features_fromMD.csv') 
+#Adjust here with the columns you want to be read as features and the column which is the Target variable
+def ExtractColumns(df):
+    X = df.iloc[:,1:49]
+    Y = df.iloc[:,[49]]
 
-X = df.iloc[:,1:49]
-Y = df.iloc[:,[49]]
+    print("Function 1 executed: Extracted columns 'col1' as X and 'col2' as Y")
+    return all_acc, MIF
 
 def SelectFeatures(X, Y):
     # Accuracy scores to be saved here
@@ -77,20 +77,20 @@ def GetTopFeatures(MIF, top_n=3, common_n=5):
 
     for data_list in MIF:
         sorted_list = sorted(data_list, key=lambda x: x[1], reverse=True)
-        
-        # Select the top N items and append to new list
         top_n_features = sorted_list[:top_n]
         top_n_items.append(top_n_features)
 
     for item_list in top_n_items:
-        # Extract strings from each tuple
         strings = [item[0] for item in item_list]
         strings_only.extend(strings)
 
     counter = Counter(strings_only)
     most_common = counter.most_common(common_n)
 
+
     figure(figsize=(9, 6.5), dpi=80)
+
+    # Unpack the elements and frequencies
     elements, frequencies = zip(*most_common)
     pastel_palette = sns.color_palette("Pastel1", len(elements))
     
@@ -103,5 +103,5 @@ def GetTopFeatures(MIF, top_n=3, common_n=5):
     #plt.title('Most important features',fontsize=16)
     plt.show()
     
-    return most_important  
+    return most_common    
 
