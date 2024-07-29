@@ -1,22 +1,19 @@
 #Import libraries
 import warnings
+import argparse
 warnings.filterwarnings('ignore') 
 import csv
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from sklearn.metrics import precision_recall_fscore_support
-from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.model_selection import RepeatedKFold
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import RocCurveDisplay
 from scipy import stats
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import figure
 from sklearn import metrics
+import matplotlib.pyplot as plt
 from itertools import product
 from collections import defaultdict, Counter
-from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.metrics import roc_curve, auc, accuracy_score
@@ -27,19 +24,33 @@ from sklearn.model_selection import RepeatedKFold
 from sklearn.decomposition import PCA
 from sklearn.metrics import roc_auc_score, roc_curve, precision_recall_curve, confusion_matrix
 from sklearn.metrics import classification_report
+from matplotlib.pyplot import figure
 from sklearn.metrics import accuracy_score     
+from sklearn.feature_selection import SelectFromModel
+from sklearn.metrics import precision_recall_fscore_support
 import math
+from scipy.stats.stats import pearsonr
 from matplotlib.colors import Normalize
 
-# Define the path to your file storing the features
-df = pd.read_csv('features_fromMD.csv') 
-# Update your X1 based on which features were chosen in the run of Feature_Select.py
-X1 = df.iloc[:, [11, 36, 21, 46, 6]]
-Y = df.iloc[:,49]
-print(Y)
+
+
+# set up arg parser
+parser = argparse.ArgumentParser(description='myscript')
+parser.add_argument('-i', "--input", required=True, help="Path to the input file")
+args = parser.parse_args()
+df = pd.read_csv(args.input)
+
+#Read the top features
+top_features_df = pd.read_csv('top_features.csv')
+feature_indices = top_features_df['Feature'].tolist()
+
+
+X1 = df.iloc[:, feature_indices]
+Y = df.iloc[:, 49]  # Update as needed based on your target column
 
 # Perorm the Classification
-def PerformClassification(X1, Y):
+
+def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
     all_fpr = []
     all_tpr = []
     all_auc = []
@@ -73,7 +84,7 @@ def PerformClassification(X1, Y):
         print(Y_test)
         print(pred_values)
 
-        # Get class probabilities for a ROC curve in case you want to plot that
+        # Get class probabilities for ROC curve
         probas_ = rrt.predict_proba(X_test)
         fpr, tpr, thresholds = roc_curve(Y_test, probas_[:, 1])
         
@@ -91,12 +102,6 @@ def PerformClassification(X1, Y):
         all_auc.append(roc_auc)
 
         print(f"The average accuracy for this run is {statistics.mean(all_acc)}")
-        mean_precision = np.mean(all_precisions, axis=0)
-        std_precision = np.std(all_precisions, axis=0)
-        mean_recall = np.mean(all_recalls, axis=0)
-        std_recall = np.std(all_recalls, axis=0)
+    return all_acc, all_tpr, all_fpr, all_auc, all_precisions, all_recalls
 
-        print(f"The mean precision is {mean_precision} with std of {std_precision}")
-        print(f"The mean recall is {mean_recall} with std of {std_recall}")
-
-    return all_acc, all_tpr, all_fpr, all_auc
+PerformClassification(X1, Y)    
