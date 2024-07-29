@@ -6,6 +6,6 @@ This module reads the extracted, averaged features from several replicas of Mole
 #### **Example call**
 
 ```bash
-python __main__.py -i path/to/your/input.csv
+python __main__.py -i example_features.csv -o selected_features.csv
 ```
 
