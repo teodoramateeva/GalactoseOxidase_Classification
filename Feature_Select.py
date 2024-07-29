@@ -30,7 +30,7 @@ import math
 from scipy.stats.stats import pearsonr
 from matplotlib.colors import Normalize
 
-#Adjust here with the columns you want to be read as features and the column which is the Target variable
+# Adjust here with the columns you want to be read as features and the column which is the Target variable
 def ExtractColumns(df):
     X = df.iloc[:,1:49]
     Y = df.iloc[:,[49]]
