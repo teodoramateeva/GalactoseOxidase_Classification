@@ -18,7 +18,7 @@ You will also need to import all the estimators from scikit-learn, as well as th
 
 #### **Description**
 
-This module reads the extracted, averaged features from several replicas of Molecualar Dynamics (MD) simulations and selects the top features. It then uses those features to fit a Random Forest Model to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate.
+This module reads the extracted, averaged features from several replicas of Transition State (TS) Molecualar Dynamics (MD) simulations and selects the top features. It then uses those features to fit a Random Forest Model to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate.
 
 #### **Extracted features file**
 
