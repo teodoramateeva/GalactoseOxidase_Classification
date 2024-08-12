@@ -13,7 +13,7 @@ pip install \
   statistics
 ```
 
-You will also need to import all required estimators from scikit-learn, as well as the other python libraries related to calculating performance metrics.
+You will also need to import all required estimators from scikit-learn (RandomForestClassifier, RandomForestRegressor), as well as the other python libraries related to calculating performance metrics.
 
 
 #### **Description**
