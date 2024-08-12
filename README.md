@@ -1,5 +1,5 @@
 #### Quick start 
-Prerequisites (it is advised to create a dedicated python venv):
+Prerequisites (it is good practice to create a dedicated python venv):
 
 ```bash
 pip install \
