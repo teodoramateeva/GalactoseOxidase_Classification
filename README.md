@@ -24,6 +24,15 @@ This module reads the extracted, averaged features from several replicas of Tran
 
 All of the features extracted from the MD simulations need to be organised in a .csv file in a format similar to the example_features.csv file where the first column contains the names of the Galactose Oxidase Variants. All subsequent columns are different features, for example, interatomic distances between two active site atoms. The final column should be your target variable.
 
+#### Clone the repository to your local machine:
+```bash
+   git https://github.com/teodoramateeva/GalactoseOxidase_Classification
+```
+#### Make sure you are located in the correct folder: 
+
+```bash
+cd GalactoseOxidase_Classification
+```
 
 #### Run from the command line: 
 
