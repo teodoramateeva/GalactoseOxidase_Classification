@@ -11,36 +11,34 @@ from sklearn.metrics import RocCurveDisplay
 from scipy import stats
 from sklearn import metrics
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
 from itertools import product
 from collections import defaultdict, Counter
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.metrics import roc_curve, auc, accuracy_score
 import statistics
 from random import shuffle
 from sklearn.feature_selection import RFE
 from sklearn.model_selection import RepeatedKFold
 from sklearn.decomposition import PCA
-from sklearn.metrics import roc_auc_score, roc_curve, precision_recall_curve, confusion_matrix
-from sklearn.metrics import classification_report
-from matplotlib.pyplot import figure
-from sklearn.metrics import accuracy_score     
+from sklearn.metrics import roc_auc_score, roc_curve, auc, accuracy_score, precision_recall_curve, confusion_matrix, classification_report
+from matplotlib.pyplot import figure  
 from sklearn.feature_selection import SelectFromModel
 import math
 from scipy.stats.stats import pearsonr
 from matplotlib.colors import Normalize
 
-# Adjust here with the columns you want to be read as features and the column which is the Target variable
+# adjust here with the columns you want to be read as features and the column which is the Target variable
 def ExtractColumns(df):
     X = df.iloc[:,1:49]
-    Y = df.iloc[:,[49]]
+    # the Y value here will be expected to be continuous
+    Y = df.iloc[:,[50]]
     return X, Y
 
-
 def SelectFeatures(X, Y):
-    # Accuracy scores to be saved here
+    # accuracy scores will be be saved here
     all_acc = []
-    # Most important features for every iteration to be saved here
+    # most important features for every iteration will be saved here
     MIF = []
 
     # Define a random state to split the data into 100 unique testing and training folds
@@ -59,12 +57,13 @@ def SelectFeatures(X, Y):
         MIF.append(f_i)
 
         pred_values = rf.predict(X_test)
-        acc = accuracy_score(pred_values.round(), Y_test)  # Assuming Y_test is binary
-        print('Accuracy : {}'.format(acc))
-        all_acc.append(acc)
 
-    return all_acc, MIF
-    
+        # calculate R² score for regression performance
+        r2 = r2_score(Y_test, pred_values)
+        print(f'R² Score : {r2}')
+        all_r2.append(r2)
+
+    return all_r2, MIF    
 
 def GetTopFeatures(MIF, top_n=3, common_n=5, csv_filename='top_features.csv'):
     """
