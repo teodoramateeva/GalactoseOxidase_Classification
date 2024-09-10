@@ -46,4 +46,4 @@ This will give you the option to save a plot of the most important features in y
 ```bash
 python Perform_Classification.py -i example_features.csv 
 ```
-This script will use the best features to fit a Random Forest and give you the averaged accuracy of prediction for 100 test folds. You can further modify the .py scripts, depending on what metrics and predictions you want saved.
+This script will use the best features to fit a Random Forest and give you the averaged accuracy of prediction for 100 test folds. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features.
