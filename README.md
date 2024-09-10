@@ -18,7 +18,7 @@ You will also need to import all required estimators from scikit-learn (RandomFo
 
 #### **Description**
 
-This module reads the extracted, averaged features from several replicas of Transition State (TS) Molecualar Dynamics (MD) simulations and selects the top features. It then uses those features to fit a Random Forest Model to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate. Since the Random Forest and other ensemble algorithms are a type of intrinsic algorithms which perform automatic feature selection during the training of the model, you can use all your features and still get the same accuracy. However, since the point of this study is to engineer an enzyme, knowing which features the model learn from, is important for the process.
+This module reads the extracted, averaged features from several replicas of Transition State (TS) Molecualar Dynamics (MD) simulations and selects the top features. It then uses those features to fit a Random Forest Model to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate. Since the Random Forest and other ensemble algorithms are a type of intrinsic algorithms which perform automatic feature selection during the training of the model, you can use all your features and still get the same accuracy. However, since the point of this study is to engineer an enzyme, knowing which features the model learns from, is important for the process.
 
 #### **Extracted features file**
 
