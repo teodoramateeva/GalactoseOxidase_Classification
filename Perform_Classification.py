@@ -12,19 +12,16 @@ from sklearn.feature_selection import RFE
 from sklearn.feature_selection import SelectFromModel
 from scipy import stats
 from sklearn import metrics
+import math
 import statistics
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure   
 from itertools import product
 from collections import defaultdict, Counter
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from random import shuffle
-from sklearn.metrics import roc_auc_score, roc_curve, auc, accuracy_score, precision_recall_curve, confusion_matrix
-from sklearn.metrics import classification_report
-from matplotlib.pyplot import figure
-from sklearn.metrics import accuracy_score     
-from sklearn.metrics import precision_recall_fscore_support
-import math
+from sklearn.metrics import roc_auc_score, roc_curve, auc, accuracy_score, precision_recall_curve, confusion_matrix, classification_report, precision_recall_fscore_support
 from scipy.stats.stats import pearsonr
 from matplotlib.colors import Normalize
 
@@ -39,7 +36,6 @@ df = pd.read_csv(args.input)
 #Read the top features
 top_features_df = pd.read_csv('top_features.csv')
 feature_indices = top_features_df['Feature'].tolist()
-
 
 X1 = df.iloc[:, feature_indices]
 Y = df.iloc[:, 49]  # Update as needed based on your target column
