@@ -31,8 +31,8 @@ from matplotlib.colors import Normalize
 # adjust here with the columns you want to be read as features and the column which is the Target variable
 def ExtractColumns(df):
     X = df.iloc[:,1:49]
-    # the Y value here will be expected to be continuous
-    Y = df.iloc[:,[50]]
+    # the Y value here will be expected to be continuous but the RFR can also be fitted with binary values
+    Y = df.iloc[:,[49]]
     return X, Y
 
 def SelectFeatures(X, Y):
