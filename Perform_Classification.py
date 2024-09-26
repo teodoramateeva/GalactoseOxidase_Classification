@@ -34,7 +34,7 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
     all_predictions = pd.DataFrame(columns=['Fold', 'Actual_Labels', 'Predicted_Labels'])
 
     random_state = 42
-    rkf = RepeatedKFold(n_splits=5, n_repeats=10, random_state=random_state)
+    rkf = RepeatedKFold(n_splits=3, n_repeats=50, random_state=random_state)
 
     for i, (train_index, test_index) in enumerate(rkf.split(X1)):
         print(f"Fold {i}:")
