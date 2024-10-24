@@ -41,28 +41,27 @@ def SelectFeatures(X, Y):
     # most important features for every iteration will be saved here
     MIF = []
 
-    # Define a random state to split the data into 100 unique testing and training folds
+    # Define a random state to split the data
     random_state = 12883823
-    rkf = RepeatedKFold(n_splits=2, n_repeats=100, random_state=random_state)
+    rkf = RepeatedKFold(n_splits=3, n_repeats=50, random_state=random_state)
     rkf.get_n_splits(X, Y)
 
     for train, test in rkf.split(X):
         X_train, X_test = X.iloc[train, :], X.iloc[test, :]
         Y_train, Y_test = Y.iloc[train], Y.iloc[test]
 
-        rf = RandomForestRegressor(random_state=12883823, n_jobs=-1)
+        rf = RandomForestRegressor(random_state=12883823, n_estimators=100, n_jobs=-1)
         rf.fit(X_train, Y_train)
+        pred_values = rf.predict(X_test)
+
         f_i = list(zip(X.columns, rf.feature_importances_))
         f_i.sort(key=lambda x: -x[1])
         MIF.append(f_i)
 
-        pred_values = rf.predict(X_test)
-
-        # calculate R² score for regression performance
+        # calculate R² score 
         r2 = r2_score(Y_test, pred_values)
         print(f'R² Score : {r2}')
         all_r2.append(r2)
-
     return all_r2, MIF    
 
 def GetTopFeatures(MIF, top_n=3, common_n=5, csv_filename='top_features.csv'):
@@ -85,7 +84,6 @@ def GetTopFeatures(MIF, top_n=3, common_n=5, csv_filename='top_features.csv'):
 
     counter = Counter(strings_only)
     most_common = counter.most_common(common_n)
-
 
     figure(figsize=(9, 6.5), dpi=80)
 
