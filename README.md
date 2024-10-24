@@ -1,5 +1,5 @@
 #### Quick start 
-Prerequisites (it is good practice to create a dedicated python venv):
+Prerequisites (it is good practice to create a dedicated python venv, although not a must):
 
 ```bash
 pip install \
@@ -13,12 +13,12 @@ pip install \
   statistics
 ```
 
-You will also need to import all required estimators from scikit-learn (RandomForestClassifier, RandomForestRegressor), as well as the other python libraries related to calculating performance metrics.
+You will also need to import all required estimators from scikit-learn, based on which model you're interested in, (RandomForestClassifier, GradientBoostingClassifier), as well as the other python libraries related to calculating performance metrics.
 
 
 #### **Description**
 
-This module reads the extracted, averaged features from several replicas of Transition State (TS) Molecualar Dynamics (MD) simulations and selects the top features. It then uses those features to fit a Random Forest Model to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate. Since the Random Forest and other ensemble algorithms are a type of intrinsic algorithms which perform automatic feature selection during the training of the model, you can use all your features and still get the same accuracy. However, since the point of this study is to engineer an enzyme, knowing which features the model learns from, is important for the process.
+This module reads the extracted, averaged features from several replicas of Transition State (TS) Molecualar Dynamics (MD) simulations and selects the top features. It then uses those features to fit a Random Forest Model to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate. Since the Random Forest and other ensemble algorithms are a type of intrinsic algorithms which perform automatic feature selection during the training of the model, you can use all your features and still get the same accuracy. However, since the point of this study is to engineer an enzyme, knowing which features the model learns from, is important for the process. You can also use the Feature_Select.py script to select your best features. Since this script uses A RandomForestRegressor, you target variable should be continiuous. 
 
 #### **Extracted features file**
 
@@ -46,4 +46,4 @@ This will give you the option to save a plot of the most important features in y
 ```bash
 python Perform_Classification.py -i example_features.csv 
 ```
-This script will use the best features to fit a Random Forest and give you the accuracy of prediction. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features.
+This script will use the best features to fit a Random Forest and give you the accuracy of prediction. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features, but you should be aware of the number of features you're using.
