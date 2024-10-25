@@ -19,10 +19,12 @@ top_features_df = pd.read_csv('top_features.csv')
 feature_indices = top_features_df['Feature'].tolist()
 
 X1 = df.iloc[:, feature_indices]
-Y = df.iloc[:, 49]  # Update based on your target column
+Y = df.iloc[:, 49]  # Update this column based on your target column
 
 # Perform the Classification
 def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
+
+    # initialize lists to store the metrics
     all_fpr = []
     all_tpr = []
     all_auc = []
@@ -31,29 +33,27 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
     all_precisions = []
     all_recalls = []
 
+    
     all_predictions = pd.DataFrame(columns=['Fold', 'Actual_Labels', 'Predicted_Labels'])
-
     random_state = 42
     rkf = RepeatedKFold(n_splits=3, n_repeats=50, random_state=random_state)
 
     for i, (train_index, test_index) in enumerate(rkf.split(X1)):
         print(f"Fold {i}:")
-        
         X_train, X_test = X1.iloc[train_index], X1.iloc[test_index]
         Y_train, Y_test = Y.iloc[train_index], Y.iloc[test_index]
         
-        rrt = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=random_state) 
-        rrt.fit(X_train, Y_train)
-        pred_values = rrt.predict(X_test)
+        rfc = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=random_state) 
+        rfc.fit(X_train, Y_train)
+        pred_values = rfc.predict(X_test)
         
-        # Store classification report
+        # write and store classification report
         report = classification_report(Y_test, pred_values, output_dict=True)
         all_classification_reports.append(report)
-        
         print(classification_report(Y_test, pred_values))
         
-        # Get class probabilities for ROC curve
-        probas_ = rrt.predict_proba(X_test)
+        # get class probabilities for ROC curve
+        probas_ = rfc.predict_proba(X_test)
         fpr, tpr, _ = roc_curve(Y_test, probas_[:, 1])
         roc_auc = auc(fpr, tpr)
         
@@ -62,7 +62,6 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
         print(f'AUC: {roc_auc:.4f}')
         
         precision, recall, _, _ = precision_recall_fscore_support(Y_test, pred_values, average=None)
-        
         all_acc.append(acc)
         all_tpr.append(tpr)
         all_fpr.append(fpr)
@@ -70,12 +69,15 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
         all_precisions.append(precision)
         all_recalls.append(recall)
 
-        # Store predictions
-        all_predictions = all_predictions.append({
-            'Fold': i,
-            'Actual_Labels': Y_test.tolist(),
-            'Predicted_Labels': pred_values.tolist()
-        }, ignore_index=True)
+        # add the results to the dataframe        
+        all_predictions = pd.concat([
+            all_predictions,
+            pd.DataFrame({
+                'Fold': [i],
+                'Actual_Labels': [Y_test.tolist()],
+                'Predicted_Labels': [pred_values.tolist()]
+            })
+        ], ignore_index=True)
     
     avg_acc = np.mean(all_acc)
     avg_auc = np.mean(all_auc)
@@ -83,10 +85,8 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
     print(f"\nFinal Results over {len(all_acc)} folds:")
     print(f"Average Accuracy: {avg_acc:.4f}")
     print(f"Average AUC: {avg_auc:.4f}")
-    
-    # Save predictions to CSV if needed
-    all_predictions.to_csv(csv_filename, index=False)
 
+    all_predictions.to_csv(csv_filename, index=False)
     return all_acc, all_tpr, all_fpr, all_auc, all_precisions, all_recalls
 
-PerformClassification(X1, Y)
+all_acc, all_tpr, all_fpr, all_auc, all_precisions, all_recalls = PerformClassification(X1, Y)
