@@ -18,7 +18,7 @@ You will also need to import all required estimators from scikit-learn, based on
 
 #### **Description**
 
-This module reads the extracted, averaged features from several replicas of Transition State (TS) Molecualar Dynamics (MD) simulations and selects the top features. It then uses those features to fit a Random Forest Model to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate. Since the Random Forest and other ensemble algorithms are a type of intrinsic algorithms which perform automatic feature selection during the training of the model, you can use all your features and still get the same accuracy. However, since the point of this study is to engineer an enzyme, knowing which features the model learns from, is important for the process. You can also use the Feature_Select.py script to select your best features. Since this script uses A RandomForestRegressor, you target variable should be continiuous. 
+This module reads the extracted, averaged features from several replicas of Transition State (TS) Molecualar Dynamics (MD) simulations and performs classification. It uses the features from MD to classify variants of Galactose Oxidase, based on whether the variant is predicted to slow down or enhance the rate for the catalytic conversion of the alcohol substrate. Since the Random Forest and other ensemble algorithms are a type of intrinsic algorithms which perform automatic feature selection during the training of the model, you can use all your features and still get the same accuracy as you would if you pre-select the features. However, since the point of this study is to engineer an enzyme, knowing which features the model learns from, is important for the process. 
 
 #### **Extracted features file**
 
@@ -36,14 +36,8 @@ cd GalactoseOxidase_Classification
 
 #### Run from the command line: 
 
-```bash
-python __main__.py -i example_features.csv 
-```
-This will give you the option to save a plot of the most important features in your dataset. Once you have saved the .png file or you have opted out, you will get a printout of the most important features. The features will also get saved to a .csv file. 
-
-#### Then, run from the command line: 
 
 ```bash
 python Perform_Classification.py -i example_features.csv 
 ```
-This script will use the best features to fit a Random Forest and give you the accuracy of prediction. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features, but you should be aware of the number of features you're using.
+This script will use features to fit a Random Forest and give you the accuracy of prediction. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features, but you should be aware of the number of features you're using or you can cause overfitting.
