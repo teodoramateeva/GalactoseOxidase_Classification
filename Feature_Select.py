@@ -9,6 +9,7 @@ from sklearn.model_selection import RepeatedKFold
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import RocCurveDisplay
 from scipy import stats
+import math
 from sklearn import metrics
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
@@ -19,22 +20,18 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 import statistics
 from random import shuffle
 from sklearn.feature_selection import RFE
-from sklearn.model_selection import RepeatedKFold
-from sklearn.decomposition import PCA
 from sklearn.metrics import roc_auc_score, roc_curve, auc, accuracy_score, precision_recall_curve, confusion_matrix, classification_report
 from matplotlib.pyplot import figure  
 from sklearn.feature_selection import SelectFromModel
-import math
 from scipy.stats.stats import pearsonr
 from matplotlib.colors import Normalize
 
 # adjust here with the columns you want to be read as features and the column which is the Target variable
 def ExtractColumns(df):
-    X = df.iloc[:,1:49]
-    # the Y value here will be expected to be continuous but the RFR can also be fitted with binary values
-    Y = df.iloc[:,[49]]
+    X = df.iloc[:,1:49].round(2)
+    Y = df.iloc[:, 49].round(0)
     return X, Y
-
+    
 def SelectFeatures(X, Y):
     # accuracy scores will be be saved here
     all_acc = []
