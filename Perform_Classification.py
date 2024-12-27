@@ -8,7 +8,14 @@ from sklearn.model_selection import RepeatedKFold
 import statistics
 
 # perform the classification
-def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
+def PerformClassification(features_file, dataset_file):
+    top_features = pd.read_csv(features_file)
+    feature_names = top_features["Feature"].values.tolist()
+    df = pd.read_csv(dataset_file)
+
+    # extract selected features and target variable
+    X1 = df[feature_names]
+    Y = df.iloc[:, -1]
 
     # initialize lists to store the metrics
     all_fpr = []
@@ -19,7 +26,6 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
     all_precisions = []
     all_recalls = []
 
-    
     all_predictions = pd.DataFrame(columns=['Fold', 'Actual_Labels', 'Predicted_Labels'])
     random_state = 42
     rkf = RepeatedKFold(n_splits=3, n_repeats=50, random_state=random_state)
@@ -29,7 +35,7 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
         X_train, X_test = X1.iloc[train_index], X1.iloc[test_index]
         Y_train, Y_test = Y.iloc[train_index], Y.iloc[test_index]
         
-        rfc = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=random_state) 
+        rfc = RandomForestClassifier(n_estimators=150, n_jobs=-1, random_state=random_state) 
         rfc.fit(X_train, Y_train)
         pred_values = rfc.predict(X_test)
         
@@ -47,7 +53,7 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
         print(f'Accuracy: {acc:.4f}')
         print(f'AUC: {roc_auc:.4f}')
         
-        precision, recall, _, _ = precision_recall_fscore_support(Y_test, pred_values, average=None)
+        precision, recall, _, _ = precision_recall_fscore_support(Y_test, pred_values, average='weighted')
         all_acc.append(acc)
         all_tpr.append(tpr)
         all_fpr.append(fpr)
@@ -72,20 +78,15 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
     print(f"Average Accuracy: {avg_acc:.4f}")
     print(f"Average AUC: {avg_auc:.4f}")
 
-    all_predictions.to_csv(csv_filename, index=False)
+    all_predictions.to_csv(classification_predictions.csv, index=False)
     return all_acc, all_tpr, all_fpr, all_auc, all_precisions, all_recalls
 
-all_acc, all_tpr, all_fpr, all_auc, all_precisions, all_recalls = PerformClassification(X1, Y)
-
-
 if __name__ == "__main__":
-    import argparse
-
     parser = argparse.ArgumentParser(description="Perform classification using selected features")
     parser.add_argument("-i", "--input", required=True, help="Path to the top features file")
     parser.add_argument("-d", "--dataset", required=True, help="Path to the dataset file")
 
     args = parser.parse_args()
 
-    # Perform classification
-    PerformClassification(args.features, args.dataset)
+    # perform classification
+    PerformClassification(args.input, args.dataset)
