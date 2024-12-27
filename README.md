@@ -22,7 +22,7 @@ This module reads the extracted, averaged features from 3 replicas of Transition
 
 #### **Extracted features file**
 
-All of the features extracted from the MD simulations need to be organised in a .csv or .xslx file in a format similar to the example_features.xslx file where the first column contains the names of the Galactose Oxidase Variants. All subsequent columns are different features, in this example, interatomic distances between two active site atoms. The final column should be your target variable, in this example it is binary (0 - rate is similar or better than the WT enzyme; 0 - rate is slower than WT enzyme).
+All of the features extracted from the MD simulations need to be organised in a .csv or .xslx file in a format similar to the example_features.xslx file where the first column contains the names of the Galactose Oxidase Variants. All subsequent columns are different features, in this example, interatomic distances between two active site atoms. The final column should be your target variable, in this example it is binary (0 - rate is similar or better than the WT enzyme; 1 - rate is slower than WT enzyme).
 
 #### Clone the repository to your local machine:
 ```bash
@@ -34,8 +34,14 @@ git https://github.com/teodoramateeva/GalactoseOxidase_Classification
 cd GalactoseOxidase_Classification
 ```
 
-#### Run from the command line: 
+#### To get the most important features and then subsequently use only those for classification, run:
 
+```bash
+python Feature_Select.py 
+```
+This will save a .csv file called top_features.csv in your current directory.
+
+#### Run from the command line: 
 
 ```bash
 python Perform_Classification.py -i top_features.csv
