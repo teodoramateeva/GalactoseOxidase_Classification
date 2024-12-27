@@ -35,15 +35,18 @@ cd GalactoseOxidase_Classification
 ```
 
 #### To get the most important features and then subsequently use only those for classification, run:
+Depending on your case, you might want to skip this step.
 
 ```bash
-python Feature_Select.py 
+python Feature_extraction.py -i example_features.xlsx -o top_features.csv
+
 ```
-This will save a .csv file called top_features.csv in your current directory.
+This will save a .csv file with the best features in your current directory.
 
-#### Run from the command line: 
+#### Then, run from the command line: 
 
 ```bash
-python Perform_Classification.py -i top_features.csv
+python Perform_Classification.py -f top_features.csv 
+
 ```
 This script will use features to fit a Random Forest and give you the accuracy of prediction. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features, but you should be aware of the number of features you're using or you can cause overfitting.
