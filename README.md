@@ -26,7 +26,7 @@ All of the features extracted from the MD simulations need to be organised in a 
 
 #### Clone the repository to your local machine:
 ```bash
-git https://github.com/teodoramateeva/GalactoseOxidase_Classification
+git clone https://github.com/teodoramateeva/GalactoseOxidase_Classification
 ```
 #### Make sure you are located in the correct folder: 
 
