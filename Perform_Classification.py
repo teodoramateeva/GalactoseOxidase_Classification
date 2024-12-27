@@ -7,22 +7,7 @@ from sklearn.metrics import classification_report, accuracy_score, roc_curve, au
 from sklearn.model_selection import RepeatedKFold
 import statistics
 
-# Set up argument parser
-parser = argparse.ArgumentParser(description='myscript')
-parser.add_argument('-i', "--input", required=True, help="Path to the input file")
-args = parser.parse_args()
-
-df = pd.read_csv(args.input)
-
-# Read the top features
-top_features_df = pd.read_csv('top_features.csv')
-feature_indices = top_features_df['Feature'].tolist()
-
-X1 = df.iloc[:, feature_indices]
-# this needs to be updated to reflect which is the target column
-Y = df.iloc[:, 49]  
-
-# Perform the Classification
+# perform the classification
 def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
 
     # initialize lists to store the metrics
@@ -91,3 +76,16 @@ def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
     return all_acc, all_tpr, all_fpr, all_auc, all_precisions, all_recalls
 
 all_acc, all_tpr, all_fpr, all_auc, all_precisions, all_recalls = PerformClassification(X1, Y)
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Perform classification using selected features")
+    parser.add_argument("-i", "--input", required=True, help="Path to the top features file")
+    parser.add_argument("-d", "--dataset", required=True, help="Path to the dataset file")
+
+    args = parser.parse_args()
+
+    # Perform classification
+    PerformClassification(args.features, args.dataset)
