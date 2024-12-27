@@ -122,6 +122,6 @@ if __name__ == "__main__":
     X, Y = ExtractColumns(df)
     all_acc, MIF = SelectFeatures(X, Y)
     top_Features = GetTopFeatures(MIF, top_n=3, common_n=5)
-    feature_df = pd.DataFrame(top_Features, columns=["Top_Features"])
+    feature_df = pd.DataFrame(top_Features, columns=["Feature"])
     feature_df.to_csv(args.output, index=False)
     print(f"Top features saved to {args.output}")
