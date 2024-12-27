@@ -46,7 +46,7 @@ This will save a .csv file with the best features in your current directory.
 #### Then, run from the command line: 
 
 ```bash
-python Perform_Classification.py -i top_features.csv 
+python Perform_Classification.py -i top_features.csv -d example_features/example_features.xlsx
 
 ```
 This script will use features to fit a Random Forest and give you the accuracy of prediction. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features, but you should be aware of the number of features you're using or you can cause overfitting.
