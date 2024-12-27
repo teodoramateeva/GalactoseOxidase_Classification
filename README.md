@@ -38,6 +38,6 @@ cd GalactoseOxidase_Classification
 
 
 ```bash
-python Perform_Classification.py -i example_features.xslx 
+python Perform_Classification.py -i top_features.csv
 ```
 This script will use features to fit a Random Forest and give you the accuracy of prediction. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features, but you should be aware of the number of features you're using or you can cause overfitting.
