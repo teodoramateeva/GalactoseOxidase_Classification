@@ -86,7 +86,7 @@ def GetTopFeatures(MIF, top_n=3, common_n=5, csv_filename='top_features.csv'):
 
     figure(figsize=(15, 7), dpi=80)
 
-    # Unpack the elements and frequencies
+    # unpack the elements and frequencies
     elements, frequencies = zip(*most_common)
     pastel_palette = sns.color_palette("Pastel1", len(elements))
     
@@ -107,5 +107,23 @@ def GetTopFeatures(MIF, top_n=3, common_n=5, csv_filename='top_features.csv'):
     
     return most_common    
 
+if __name__ == "__main__":
+    import argparse
 
+    parser = argparse.ArgumentParser(description="Extract features and save top features")
+    parser.add_argument("-i", "--input", required=True, help="Path to the input file (CSV or XLSX)")
+    parser.add_argument("-o", "--output", default="top_features.csv", help="Path to save top features (CSV)")
 
+    args = parser.parse_args()
+    if args.input.endswith(".xlsx"):
+        df = pd.read_excel(args.input)
+    elif args.input.endswith(".csv"):
+        df = pd.read_csv(args.input)
+
+    # perform feature extraction and selection
+    X, Y = ExtractColumns(df)
+    all_acc, MIF = SelectFeatures(X, Y)
+    top_Features = GetTopFeatures(MIF, top_n=3, common_n=5)
+    feature_df = pd.DataFrame(top_Features, columns=["Top_Features"])
+    feature_df.to_csv(args.output, index=False)
+    print(f"Top features saved to {args.output}")
