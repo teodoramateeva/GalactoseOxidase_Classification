@@ -9,6 +9,7 @@ from sklearn.model_selection import RepeatedKFold
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import RocCurveDisplay
 from scipy import stats
+from sklearn.metrics import r2_score
 import math
 from sklearn import metrics
 import matplotlib.pyplot as plt
@@ -37,6 +38,7 @@ def SelectFeatures(X, Y):
     all_acc = []
     # most important features for every iteration will be saved here
     MIF = []
+    all_r2 = []
 
     # Define a random state to split the data
     random_state = 12883823
@@ -82,7 +84,7 @@ def GetTopFeatures(MIF, top_n=3, common_n=5, csv_filename='top_features.csv'):
     counter = Counter(strings_only)
     most_common = counter.most_common(common_n)
 
-    figure(figsize=(9, 6.5), dpi=80)
+    figure(figsize=(15, 7), dpi=80)
 
     # Unpack the elements and frequencies
     elements, frequencies = zip(*most_common)
