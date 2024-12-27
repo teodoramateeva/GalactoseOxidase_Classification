@@ -19,7 +19,8 @@ top_features_df = pd.read_csv('top_features.csv')
 feature_indices = top_features_df['Feature'].tolist()
 
 X1 = df.iloc[:, feature_indices]
-Y = df.iloc[:, 49]  # Update this column based on your target column
+# this needs to be updated to reflect which is the target column
+Y = df.iloc[:, 49]  
 
 # Perform the Classification
 def PerformClassification(X1, Y, csv_filename='Predictions.csv'):
