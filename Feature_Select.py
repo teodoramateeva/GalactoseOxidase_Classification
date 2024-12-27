@@ -9,9 +9,9 @@ from sklearn.model_selection import RepeatedKFold
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import RocCurveDisplay
 from scipy import stats
-from sklearn.metrics import r2_score
 import math
 from sklearn import metrics
+from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 from itertools import product
@@ -23,11 +23,9 @@ from random import shuffle
 from sklearn.feature_selection import RFE
 from sklearn.metrics import roc_auc_score, roc_curve, auc, accuracy_score, precision_recall_curve, confusion_matrix, classification_report
 from matplotlib.pyplot import figure  
-from sklearn.feature_selection import SelectFromModel
-from scipy.stats.stats import pearsonr
 from matplotlib.colors import Normalize
 
-# adjust here with the columns you want to be read as features and the column which is the Target variable
+# adjust here with the columns you want to be read as features and the column which is the target variable
 def ExtractColumns(df):
     X = df.iloc[:,1:49].round(2)
     Y = df.iloc[:, 49].round(0)
@@ -38,10 +36,10 @@ def SelectFeatures(X, Y):
     all_acc = []
     # most important features for every iteration will be saved here
     MIF = []
+    # r2 scores will be saved here
     all_r2 = []
 
-    # Define a random state to split the data
-    random_state = 12883823
+    random_state = 42
     rkf = RepeatedKFold(n_splits=3, n_repeats=50, random_state=random_state)
     rkf.get_n_splits(X, Y)
 
@@ -49,7 +47,7 @@ def SelectFeatures(X, Y):
         X_train, X_test = X.iloc[train, :], X.iloc[test, :]
         Y_train, Y_test = Y.iloc[train], Y.iloc[test]
 
-        rf = RandomForestRegressor(random_state=12883823, n_estimators=100, n_jobs=-1)
+        rf = RandomForestRegressor(random_state=42, n_estimators=150, n_jobs=-1)
         rf.fit(X_train, Y_train)
         pred_values = rf.predict(X_test)
 
