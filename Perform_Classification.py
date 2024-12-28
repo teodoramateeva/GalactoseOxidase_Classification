@@ -11,11 +11,13 @@ import statistics
 def PerformClassification(features_file, dataset_file):
     top_features = pd.read_csv(features_file)
     feature_names = top_features["Feature"].values.tolist()
-    df = pd.read_excel(dataset_file)
+    df = pd.read_excel(dataset_file).round(2)
 
     # extract selected features and target variable
     X1 = df[feature_names]
+    print(X1)
     Y = df.iloc[:, -1]
+    print(Y)
 
     # initialize lists to store the metrics
     all_fpr = []
@@ -50,8 +52,8 @@ def PerformClassification(features_file, dataset_file):
         roc_auc = auc(fpr, tpr)
         
         acc = accuracy_score(Y_test, pred_values)
-        print(f'Accuracy: {acc:.4f}')
-        print(f'AUC: {roc_auc:.4f}')
+        print(f'Accuracy: {acc:.2f}')
+        print(f'AUC: {roc_auc:.2f}')
         
         precision, recall, _, _ = precision_recall_fscore_support(Y_test, pred_values, average='weighted')
         all_acc.append(acc)
