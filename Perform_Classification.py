@@ -26,7 +26,7 @@ def PerformClassification(features_file, dataset_file):
     all_precisions = []
     all_recalls = []
 
-    all_predictions = pd.DataFrame(columns=['Fold', 'Actual_Labels', 'Predicted_Labels'])
+    all_predictions = pd.DataFrame(columns=['Fold', 'Index', 'Actual_Labels', 'Predicted_Labels'])
     random_state = 42
     rkf = RepeatedKFold(n_splits=3, n_repeats=50, random_state=random_state)
 
@@ -61,15 +61,14 @@ def PerformClassification(features_file, dataset_file):
         all_precisions.append(precision)
         all_recalls.append(recall)
 
-        # add the results to the dataframe        
-        all_predictions = pd.concat([
-            all_predictions,
-            pd.DataFrame({
-                'Fold': [i],
-                'Actual_Labels': [Y_test.tolist()],
-                'Predicted_Labels': [pred_values.tolist()]
-            })
-        ], ignore_index=True)
+        fold_data = pd.DataFrame({   
+        'Fold': np.repeat(i, len(Y_test)),
+        'Index': Y_test.index,
+        'Actual_Labels': Y_test.values.flatten(),
+        'Predicted_Labels': pred_values.flatten()
+    })
+        
+        all_predictions = pd.concat([all_predictions, fold_data], ignore_index=True)
     
     avg_acc = np.mean(all_acc)
     avg_auc = np.mean(all_auc)
