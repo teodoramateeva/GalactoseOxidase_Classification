@@ -38,7 +38,7 @@ cd GalactoseOxidase_Classification
 Depending on your case, you might want to skip this step.
 
 ```bash
-python Feature_extraction.py -i example_features/example_features.xlsx -o top_features.csv
+python Feature_Select.py -i example_features/example_features.xlsx -o top_features.csv
 
 ```
 This will save a .csv file with the best features in your current directory.
