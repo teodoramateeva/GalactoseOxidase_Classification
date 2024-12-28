@@ -82,7 +82,7 @@ def GetTopFeatures(MIF, top_n=3, common_n=5, csv_filename='top_features.csv'):
     counter = Counter(strings_only)
     most_common = counter.most_common(common_n)
 
-    figure(figsize=(15, 7), dpi=80)
+    figure(figsize=(17, 7), dpi=80)
 
     # unpack the elements and frequencies
     elements, frequencies = zip(*most_common)
