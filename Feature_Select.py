@@ -27,7 +27,7 @@ from matplotlib.colors import Normalize
 
 # adjust here with the columns you want to be read as features and the column which is the target variable
 def ExtractColumns(df):
-    X = df.iloc[:,1:49].round(2)
+    X = df.iloc[:,1:24].round(2)
     Y = df.iloc[:, 49].round(0)
     return X, Y
     
