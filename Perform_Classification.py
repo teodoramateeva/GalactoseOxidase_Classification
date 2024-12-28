@@ -11,7 +11,7 @@ import statistics
 def PerformClassification(features_file, dataset_file):
     top_features = pd.read_csv(features_file)
     feature_names = top_features["Feature"].values.tolist()
-    df = pd.read_csv(dataset_file)
+    df = pd.read_excel(dataset_file)
 
     # extract selected features and target variable
     X1 = df[feature_names]
