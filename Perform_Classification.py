@@ -75,10 +75,10 @@ def PerformClassification(features_file, dataset_file):
     avg_auc = np.mean(all_auc)
     
     print(f"\nFinal Results over {len(all_acc)} folds:")
-    print(f"Average Accuracy: {avg_acc:.4f}")
-    print(f"Average AUC: {avg_auc:.4f}")
+    print(f"Average Accuracy: {avg_acc:.2f}")
+    print(f"Average AUC: {avg_auc:.2f}")
 
-    all_predictions.to_csv(classification_predictions.csv, index=False)
+    all_predictions.to_csv("classification_predictions.csv", index=False)
     return all_acc, all_tpr, all_fpr, all_auc, all_precisions, all_recalls
 
 if __name__ == "__main__":
