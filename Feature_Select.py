@@ -57,7 +57,7 @@ def SelectFeatures(X, Y):
 
         # calculate R² score 
         r2 = r2_score(Y_test, pred_values)
-        print(f'R² Score : {r2}')
+        print(f'R² Score : {r2:.2f}')
         all_r2.append(r2)
     return all_r2, MIF    
 
