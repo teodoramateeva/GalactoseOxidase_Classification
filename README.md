@@ -50,3 +50,5 @@ python Perform_Classification.py -i top_features.csv -d example_features/example
 
 ```
 This script will use features to fit a Random Forest and give you the accuracy of prediction. You can further modify the .py scripts, depending on what metrics and predictions you want saved. The accuracy should remain the same if you fit all of the features, but you should be aware of the number of features you're using or you can cause overfitting.
+
+The concept of predicting the catalytic rate of a variant from MD simulations is described in this pre-print: [https://doi.org/10.21203/rs.3.rs-4743509/v1]
