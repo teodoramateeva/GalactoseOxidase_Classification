@@ -1,5 +1,5 @@
 #### Quick start 
-Prerequisites (it is good practice to create a dedicated python venv, although not a must):
+You will need all of the following libraries in order to perform the classification:
 
 ```bash
 pip install \
